@@ -1,0 +1,16 @@
+[
+  {
+    "nome": "Guilherme",
+    "caracteristicas": [
+      "proativo",
+      "empenhado"
+    ],
+    "carreira": "front-end",
+    "linguagens": [
+      "Js",
+      "HTML",
+      "CSS"
+    ],
+    "data criacao": "2025-11-11"
+  }
+]
