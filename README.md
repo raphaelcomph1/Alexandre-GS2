@@ -64,13 +64,13 @@ python gs2-alexandre.py
 ```
 GS2-ALEXANDRE/
 │
-├── gs2-alexande.py            
+├── gs2-alexandre.py            
 ├── usuarios.py          
 ├── repositorio.py       
 ├── .env                 
 └── README.md            
 ```
-- gs2-alexande.py -> Arquivo principal do programa (contém o menu e lógica de execução).
+- gs2-alexandre.py -> Arquivo principal do programa (contém o menu e lógica de execução).
 
 - usuarios.py -> Define a classe Usuario, com atributos e métodos para representar o perfil do usuário.
 
