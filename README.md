@@ -4,7 +4,10 @@
 563567 Raphael Mischiatti de Souza \
 563500 Guilherme Martins Rezende
 
-# Como rodar o Código
+
+# Descrição do projeto e propósito
+Nesse projeto o grupo teve a iniciativa de criar um codigo, juntando POO (progamacao orientada a objetos) e um agente de IA visando gerar recomendações ao usuário referente a progressos para sua carreira profissional.
+# Instruções de execução
 
 ### Primeiro passo 
 Crie uma pasta chamada ".venv" e ative-a utilizando os codigos abaixo no terminal.\
@@ -53,6 +56,35 @@ Por fim rode o arquivo "gs2-alexandre.py" no terminal.
 python gs2-alexandre.py
 ```
 
+<br>
+<br>
 
+# Estrutura de arquivos e classes
 
+```
+GS2-ALEXANDRE/
+│
+├── gs2-alexande.py            
+├── usuarios.py          
+├── repositorio.py       
+├── .env                 
+└── README.md            
+```
+- gs2-alexande.py -> Arquivo principal do programa (contém o menu e lógica de execução).
 
+- usuarios.py -> Define a classe Usuario, com atributos e métodos para representar o perfil do usuário.
+
+- repositorio.py -> Define a classe Repositorio, responsável por armazenar e gerenciar os usuários cadastrados.
+
+- .env -> Armazena variáveis de ambiente, como a chave da API Gemini.
+
+- README.md -> Documento explicativo do projeto.
+
+<br>
+<br>
+
+# Demonstração
+Segue em anexo o video do codigo em funcionamento no Youtube.
+```
+https://www.youtube.com/watch?v=xyBmeDp5Gjo
+```

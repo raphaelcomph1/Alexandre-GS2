@@ -84,5 +84,18 @@
       "nenhuma"
     ],
     "data criacao": "2025-11-12"
+  },
+  {
+    "nome": "Raphael Mischiatti",
+    "caracteristicas": [
+      "dedicado",
+      "proativo",
+      "empenhado"
+    ],
+    "carreira": "Analista de Dados",
+    "linguagens": [
+      "Python"
+    ],
+    "data criacao": "2025-11-12"
   }
 ]
