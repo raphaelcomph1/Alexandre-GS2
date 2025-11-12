@@ -12,5 +12,77 @@
       "CSS"
     ],
     "data criacao": "2025-11-11"
+  },
+  {
+    "nome": "Raphael",
+    "caracteristicas": [
+      "legal",
+      "divertido",
+      "bonito",
+      "novo"
+    ],
+    "carreira": "cabeleleiro",
+    "linguagens": [
+      "ingles",
+      "portugues"
+    ],
+    "data criacao": "2025-11-12"
+  },
+  {
+    "nome": "fernando",
+    "caracteristicas": [
+      "feliz"
+    ],
+    "carreira": "analista de dados",
+    "linguagens": [
+      "python"
+    ],
+    "data criacao": "2025-11-12"
+  },
+  {
+    "nome": "alexandre russi",
+    "caracteristicas": [
+      "otimo professor",
+      "bonito",
+      "divertido",
+      "descontraido",
+      "comunicativo",
+      "melhor scrum master que tivemos"
+    ],
+    "carreira": "professor universitario de TI",
+    "linguagens": [
+      "Python",
+      "JAvascript",
+      "cobol"
+    ],
+    "data criacao": "2025-11-12"
+  },
+  {
+    "nome": "luiz",
+    "caracteristicas": [
+      "nao tenho"
+    ],
+    "carreira": "barbeiro",
+    "linguagens": [
+      "java",
+      "python",
+      "cobol",
+      "c",
+      "c++",
+      "ia"
+    ],
+    "data criacao": "2025-11-12"
+  },
+  {
+    "nome": "guilherme",
+    "caracteristicas": [
+      "triste",
+      "carente"
+    ],
+    "carreira": "presidente",
+    "linguagens": [
+      "nenhuma"
+    ],
+    "data criacao": "2025-11-12"
   }
 ]

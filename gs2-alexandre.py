@@ -1,14 +1,14 @@
 from usuarios import Usuario
-from repositorio import Repositorio
-import os
-import google.generativeai as genai
-from dotenv import load_dotenv
+from repositorio import Repositorio             #Impotacao das classes
+import os                                       
+import google.generativeai as genai             #libs utilizadas
+from dotenv import load_dotenv              
 
 load_dotenv()
 
 repositorio_usuario = Repositorio()
 
-def menu():
+def menu():                                         #menu interativo
     condicao = True
     while condicao:
         print('------------------------------------')
@@ -32,13 +32,18 @@ def menu():
                 print("Até mais!")
                 condicao=False
 
-def cadastar_usuario():
-    nome = input("Digite seu nome: ")
+def cadastar_usuario():                               #cadastra o usuario anexando os metodos a classe 
+    nome = input("Digite seu nome e sobrenome (separado e com espaco): ").strip()
+    lista_usuarios = repositorio_usuario.usuarios_db()
+    for u in lista_usuarios:
+        if u["nome"].lower() == nome:
+            print('Este nome ja esta sendo utilizado em outro cadastro')
+            return 
 
-    caracteristicas_input = input("Digite as caracteristicas (separado por virgula): ")
+    caracteristicas_input = input("Digite as caracteristicas comportamentais (separado por virgula): ")
     caracteristicas = [c.strip() for c in caracteristicas_input.split(",")]
 
-    carreira = input("Digite a carreira: ")
+    carreira = input("Digite sua carreira desejada (profissao): ")
 
     linguagens_input = input("Digite as linguagens (separadas por vírgula): ")
     linguagens = [l.strip() for l in linguagens_input.split(",")]
@@ -49,7 +54,7 @@ def cadastar_usuario():
     repositorio_usuario.criandoUsuario(convertendoUsuario)
     print('Usuario cadastrado!')
 
-def exibindo_usuarios():
+def exibindo_usuarios():                            #exibe o dicionario com os usuarios registrados 
     lista_usuarios = repositorio_usuario.usuarios_db()
     if not lista_usuarios:
         print ("Nenhum usuario cadastrado")
@@ -60,7 +65,7 @@ def exibindo_usuarios():
         linguagens = ', '.join(usuario['linguagens'])
         print(f"{i+1:02d} | {usuario['nome']:<20} | {caracteristicas:<50} | {usuario['carreira']:<20} | {linguagens:<30}")
 
-def procurar_usuario(usuario):
+def procurar_usuario(usuario):       #Procura usuarios existentes dentro do dicionario e retorna os dados do usuario
         if not usuario:
             print("Digite o nome para procurar")
             return
@@ -84,8 +89,9 @@ def procurar_usuario(usuario):
             print(f"{i+1:02d} | {user['nome']:<20} | {caracteristicas:<50} | {user['carreira']:<20} | {linguagens:<30}")
 
 
-def recomendacao():
-    nome = input("Digite o nome e sobrenome da pessoa que deseja gerar a recomendacao: ").lower()
+def recomendacao():     #Seleciona o nome e faz analise gerar recomendações personalizadas indicando carreiras,  
+                        #trilhas de aprendizado ou áreas de aprimoramento adequadas ao perfil analisado
+    nome = input("Digite o nome e sobrenome da pessoa que deseja gerar a recomendacao: ").lower().strip()
     lista_usuarios = repositorio_usuario.usuarios_db()
 
     usuario_encontrado = None
@@ -104,14 +110,17 @@ def recomendacao():
         carreira = usuario_encontrado['carreira']
 
 
-    CHAVE_API_KEY = os.getenv("GEMINI_API_KEY")
+    CHAVE_API_KEY = os.getenv("GEMINI_API_KEY")                 #Anexando a key do gemini ao nosso programa
     genai.configure(api_key=CHAVE_API_KEY)
     MODELO_ESCOLHIDO = "gemini-2.5-flash"
 
-    prompt_sistema = f'''
+                                                                #Configurando os requisitos da IA
+    prompt_sistema = f'''                                       
     Você pegará esses dados: {linguagens}, {caracteristicas}, {carreira} e gerará uma recomendação para o usuário sobre como pode progredir nessa área como
     aprendendo uma linguagem, recomendar uma outra área ou aprimorar alguma caracteristica. Sempre comece com "O usuário pesquisado deve" e continue falando
     pontos de melhora para a pessoa.
+
+    Seja breve e obejtiva(10 linhas) sem sua resposta 
     '''
     llm = genai.GenerativeModel(
         model_name=MODELO_ESCOLHIDO,
