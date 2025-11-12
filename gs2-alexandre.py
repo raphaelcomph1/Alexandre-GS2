@@ -1,5 +1,10 @@
 from usuarios import Usuario
 from repositorio import Repositorio
+import os
+import google.generativeai as genai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 repositorio_usuario = Repositorio()
 
@@ -21,8 +26,8 @@ def menu():
             case 3:
                 usuario_desejado = input("Digite o nome do usuario desejado: ").lower()
                 procurar_usuario(usuario_desejado)
-            #case 4:
-                #recomendacao()
+            case 4:
+                recomendacao()
             case 0:
                 print("Até mais!")
                 condicao=False
@@ -72,10 +77,53 @@ def procurar_usuario(usuario):
         if not results:
             print("Nada encontrado!")
             return
-        print(f"\n## | {'Nome':<20} | {'Caracteeristicas':<50} | {'Carreira':<20}  | {'Linguagens':<30}")
+        print(f"\n## | {'Nome':<20} | {'Caracteristicas':<50} | {'Carreira':<20}  | {'Linguagens':<30}")
         for i, usuario in enumerate(results):
             caracteristicas = ', '.join(user['caracteristicas'])
             linguagens = ', '.join(user['linguagens'])
             print(f"{i+1:02d} | {user['nome']:<20} | {caracteristicas:<50} | {user['carreira']:<20} | {linguagens:<30}")
+
+
+def recomendacao():
+    nome = input("Digite o nome e sobrenome da pessoa que deseja gerar a recomendacao: ").lower()
+    lista_usuarios = repositorio_usuario.usuarios_db()
+
+    usuario_encontrado = None
+    for u in lista_usuarios:
+        if u["nome"].lower() == nome:
+            usuario_encontrado = u
+            break
+
+    if not usuario_encontrado:
+        print("Cadastre esse usuário antes de pesquisar sobre!")
+        return
+    else:
+        print('carregando...')
+        linguagens = ', '.join(usuario_encontrado['linguagens'])
+        caracteristicas = ', '.join(usuario_encontrado['caracteristicas'])
+        carreira = usuario_encontrado['carreira']
+
+
+    CHAVE_API_KEY = os.getenv("GEMINI_API_KEY")
+    genai.configure(api_key=CHAVE_API_KEY)
+    MODELO_ESCOLHIDO = "gemini-2.5-flash"
+
+    prompt_sistema = f'''
+    Você pegará esses dados: {linguagens}, {caracteristicas}, {carreira} e gerará uma recomendação para o usuário sobre como pode progredir nessa área como
+    aprendendo uma linguagem, recomendar uma outra área ou aprimorar alguma caracteristica. Sempre comece com "O usuário pesquisado deve" e continue falando
+    pontos de melhora para a pessoa.
+    '''
+    llm = genai.GenerativeModel(
+        model_name=MODELO_ESCOLHIDO,
+        system_instruction= prompt_sistema
+    )
+
+    pergunta = "Quais caracteristicas posso melhorar para progredir em minha carreira? Ou seria melhor mudar de carreira baseado nas minhas caracteristicas atuais?"
     
+    resposta = llm.generate_content(pergunta)
+    print('\n')
+    print(f'{resposta.text}')
+
+
+
 menu()
